@@ -1,0 +1,16 @@
+RESUME PLACEHOLDER
+==================
+
+Place your real resume PDF at:
+  /public/resume.pdf
+
+The portfolio's "Download Resume" button and all CTA links already
+point to /resume.pdf — no code changes needed.
+
+Steps:
+1. Export your resume as resume.pdf
+2. Copy it into the /public/ folder (this folder)
+3. Replace or delete this file
+4. Redeploy to Vercel
+
+The file will be served at: https://your-domain.com/resume.pdf

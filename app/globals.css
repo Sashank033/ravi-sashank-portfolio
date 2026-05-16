@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-syne: "Sora", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(148, 163, 184, 0.25);
+}
+
+.dark {
+  --card-bg: rgba(10, 22, 40, 0.7);
+  --card-border: rgba(148, 163, 184, 0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background-color: #020817;
+  color: #f1f5f9;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(14,165,233,0.35); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(14,165,233,0.6); }
+::selection { background: rgba(14,165,233,0.25); color: #f1f5f9; }
+
+@layer components {
+
+  .glass {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+  }
+  .glass-strong {
+    background: rgba(8,18,38,0.92);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(148,163,184,0.1);
+  }
+
+  /* ── Gradients ── */
+  .text-gradient-sky {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .text-gradient-violet {
+    background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, #34d399 0%, #38bdf8 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .text-gradient-amber {
+    background: linear-gradient(135deg, #fbbf24 0%, #f87171 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  /* Hero name — three-stop, more distinctive */
+  .text-gradient-hero {
+    background: linear-gradient(135deg, #7dd3fc 0%, #c4b5fd 50%, #67e8f9 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── Layout ── */
+  .section-padding { @apply py-24 px-6 md:px-12 lg:px-24 xl:px-32; }
+  .section-title {
+    font-family: var(--font-syne);
+    @apply text-4xl md:text-5xl font-bold tracking-tight;
+  }
+  /* Eyebrow labels — distinct from tag pills */
+  .eyebrow {
+    font-family: var(--font-syne);
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500;
+  }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    font-family: var(--font-syne);
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+      bg-sky-500 hover:bg-sky-400 text-white shadow-glow-sm hover:shadow-glow
+      transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-ghost {
+    font-family: var(--font-syne);
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+      bg-transparent border border-white/10 hover:border-sky-500/40
+      hover:bg-sky-500/5 text-slate-300 hover:text-sky-400
+      transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-icon {
+    @apply w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center
+      text-slate-400 hover:text-sky-400 hover:border-sky-500/30
+      transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* ── Tags ── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  .tag {
+    @apply px-2.5 py-0.5 rounded-md text-xs font-medium
+      bg-sky-500/10 text-sky-400 border border-sky-500/20;
+  }
+  .tag-violet {
+    @apply px-2.5 py-0.5 rounded-md text-xs font-medium
+      bg-violet-500/10 text-violet-400 border border-violet-500/20;
+  }
+  .tag-emerald {
+    @apply px-2.5 py-0.5 rounded-md text-xs font-medium
+      bg-emerald-500/10 text-emerald-400 border border-emerald-500/20;
+  }
+  .tag-amber {
+    @apply px-2.5 py-0.5 rounded-md text-xs font-medium
+      bg-amber-500/10 text-amber-400 border border-amber-500/20;
+  }
+
+  /* ── Stat card (hero + snapshot) ── */
+  .stat-card {
+    @apply glass border border-white/[0.07] rounded-2xl p-5 flex flex-col gap-1.5
+      hover:border-sky-500/20 transition-all duration-300;
+  }
+  .stat-number {
+    font-family: var(--font-syne);
+    @apply text-4xl font-extrabold leading-none;
+  }
+  .stat-label { @apply text-slate-500 text-xs leading-snug; }
+
+  /* ── Skill pill ── */
+  .skill-pill {
+    @apply px-3 py-1.5 rounded-lg text-xs font-medium border
+      bg-white/[0.03] border-white/[0.07] text-slate-300
+      hover:border-sky-500/30 hover:text-sky-300 hover:bg-sky-500/5
+      transition-all duration-150 cursor-default select-none;
+  }
+
+  /* ── Featured project ── */
+  .featured-card {
+    @apply glass rounded-3xl relative overflow-hidden
+      transition-all duration-300;
+    border: 1px solid rgba(14,165,233,0.18);
+    box-shadow:
+      0 0 0 1px rgba(14,165,233,0.08),
+      0 24px 80px rgba(0,0,0,0.45),
+      0 0 60px rgba(14,165,233,0.06);
+  }
+  .featured-card::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(14,165,233,0.04) 0%, transparent 55%, rgba(99,102,241,0.04) 100%);
+    pointer-events: none;
+  }
+  .featured-card:hover { border-color: rgba(14,165,233,0.28); }
+
+  /* ── Form ── */
+  .form-input {
+    @apply w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3
+      text-slate-200 placeholder:text-slate-600
+      focus:outline-none focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/15
+      transition-all duration-200 text-sm;
+  }
+}
+
+/* ── Grid dot pattern ── */
+.grid-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(148,163,184,0.055) 1px, transparent 0);
+  background-size: 44px 44px;
+}
+
+/* ── Ambient blobs ── */
+.blob {
+  position: absolute; border-radius: 9999px;
+  filter: blur(90px); pointer-events: none;
+  animation: pulseGlow 9s ease-in-out infinite;
+}
+.blob-sky     { background: radial-gradient(circle, rgba(14,165,233,0.6)  0%, transparent 70%); }
+.blob-violet  { background: radial-gradient(circle, rgba(99,102,241,0.5)  0%, transparent 70%); animation-delay: 3s; }
+.blob-emerald { background: radial-gradient(circle, rgba(16,185,129,0.4)  0%, transparent 70%); animation-delay: 6s; }
+
+/* ── Gradient border on hover ── */
+.gradient-border { position: relative; border-radius: 16px; }
+.gradient-border::before {
+  content: ""; position: absolute; inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #10b981, #0ea5e9);
+  background-size: 200%; animation: borderFlow 4s linear infinite;
+  z-index: -1; opacity: 0; transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before { opacity: 1; }
+
+/* ── Noise overlay ── */
+.noise-bg::after {
+  content: ""; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.012; pointer-events: none; z-index: 0;
+}
+
+/* ── Keyframes ── */
+@keyframes pulseGlow {
+  0%,100% { opacity: 0.22; transform: scale(1); }
+  50%      { opacity: 0.42; transform: scale(1.07); }
+}
+@keyframes borderFlow {
+  0%   { background-position:   0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Toast ── */
+.toast-success { background: rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.25); color:#34d399; }
+.toast-error   { background: rgba(239,68,68,0.12);  border:1px solid rgba(239,68,68,0.25);  color:#f87171; }
+
+/* ── Reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
