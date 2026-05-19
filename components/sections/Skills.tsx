@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import SectionReveal from "@/components/ui/SectionReveal";
+import MatrixText from "@/components/ui/MatrixText";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 import { skillCategories } from "@/data/skills";
 import {
   Monitor, Server, Database, Cloud, Sparkles,
-  TestTube, Wrench, Layers
+  TestTube, Wrench, Layers, BarChart3, GitBranch, FileDown
 } from "lucide-react";
 
 const iconMap: Record<string, React.ElementType> = {
-  Monitor, Server, Database, Cloud, Sparkles, TestTube, Wrench, Layers,
+  Monitor, Server, Database, Cloud, Sparkles, TestTube, Wrench, Layers, BarChart3, GitBranch, FileDown,
 };
 
 const colorMap: Record<string, {
@@ -44,11 +46,27 @@ const colorMap: Record<string, {
 
 export default function Skills() {
   const [active, setActive] = useState("all");
+  const [matrixKey, setMatrixKey] = useState(0);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const wasHeadingInView = useRef(false);
+  const isHeadingInView = useInView(headingRef, { once: false, margin: "-80px", amount: 0.4 });
 
   const displayed =
     active === "all"
       ? skillCategories
       : skillCategories.filter((c) => c.category === active);
+
+  useEffect(() => {
+    if (isHeadingInView && !wasHeadingInView.current) {
+      setMatrixKey((key) => key + 1);
+      wasHeadingInView.current = true;
+      return;
+    }
+
+    if (!isHeadingInView) {
+      wasHeadingInView.current = false;
+    }
+  }, [isHeadingInView]);
 
   return (
     <section id="skills" className="section-padding max-w-7xl mx-auto" aria-labelledby="skills-heading">
@@ -58,12 +76,14 @@ export default function Skills() {
           <span className="eyebrow">Skills</span>
           <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-violet-500/40 to-transparent" />
         </div>
-        <h2 id="skills-heading" className="section-title text-slate-100 mb-2">
-          Technical{" "}
-          <span className="text-gradient-violet">Toolkit</span>
+        <h2 ref={headingRef} id="skills-heading" className="section-title text-slate-100 mb-2">
+          <MatrixText text="Technical" triggerKey={matrixKey} />{" "}
+          <MatrixText text="Toolkit" className="text-gradient-violet" triggerKey={matrixKey} />
         </h2>
-        <p className="text-slate-500 text-sm mb-10 max-w-lg">
+        <p className="mb-10 max-w-lg">
+          <AnimatedShinyText variant="text" className="text-sm">
           Languages, frameworks, tools, and platforms I use across the full stack.
+          </AnimatedShinyText>
         </p>
       </SectionReveal>
 
@@ -103,7 +123,7 @@ export default function Skills() {
       </SectionReveal>
 
       {/* Skill grid — categories as cards, skills as pills */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {displayed.map((cat, catIdx) => {
           const Icon = iconMap[cat.icon];
           const c = colorMap[cat.color];

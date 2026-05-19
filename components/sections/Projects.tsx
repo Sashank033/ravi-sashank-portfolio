@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionReveal from "@/components/ui/SectionReveal";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 import { projects, type Project } from "@/data/projects";
 import {
   ExternalLink, Github, Brain, MessageSquare, BarChart3, FileHeart,
@@ -127,6 +129,7 @@ function FeaturedProjectCard({
 
           {/* CTAs */}
           <div className="flex flex-col gap-2">
+            {/* Live demo hidden until project deployments are available.
             <a
               href={project.liveDemo}
               target="_blank"
@@ -137,6 +140,7 @@ function FeaturedProjectCard({
               <ExternalLink className="w-3.5 h-3.5" />
               Live Demo
             </a>
+            */}
             <a
               href={project.github}
               target="_blank"
@@ -180,12 +184,12 @@ function CompactProjectCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 12 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className={`gradient-border glass border border-white/[0.07] rounded-2xl p-5
+      className={`glass border border-white/[0.07] rounded-2xl p-5
         flex flex-col gap-4 transition-all duration-300 ${a.border} hover:-translate-y-1`}
       aria-label={`Project: ${project.title}`}
     >
       {/* Icon + title */}
-      <div className="flex items-start gap-3">
+      <div className="flex min-h-[6.25rem] items-start gap-3">
         <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0
           bg-gradient-to-br ${project.color}`}>
           {Icon && <Icon className={`w-5 h-5 ${a.text}`} />}
@@ -196,12 +200,14 @@ function CompactProjectCard({
         </div>
       </div>
 
-      <p className="text-slate-400 text-xs leading-relaxed line-clamp-3">{project.tagline}</p>
+      <p className="min-h-[5.25rem] text-slate-400 text-xs leading-relaxed line-clamp-4">
+        {project.tagline}
+      </p>
 
       {/* Key metric */}
       {project.metrics[0] && (
-        <div className="flex items-center gap-2 py-2 px-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-          <p className={`font-syne font-bold text-xl leading-none ${a.metricText}`}>
+        <div className="flex items-center gap-2 py-2.5 px-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+          <p className={`translate-y-[1px] font-syne font-bold text-xl leading-none ${a.metricText}`}>
             {project.metrics[0].value}
           </p>
           <p className="text-slate-600 text-[10px]">{project.metrics[0].label}</p>
@@ -225,6 +231,7 @@ function CompactProjectCard({
 
       {/* Actions */}
       <div className="flex gap-2 pt-2 border-t border-white/[0.05]">
+        {/* Live demo hidden until project deployments are available.
         <a
           href={project.liveDemo}
           target="_blank"
@@ -236,6 +243,7 @@ function CompactProjectCard({
           <ExternalLink className="w-3 h-3" />
           Demo
         </a>
+        */}
         <a
           href={project.github}
           target="_blank"
@@ -266,13 +274,15 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
   const Icon = iconMap[project.icon];
   const a = accentMap[project.accentColor];
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10
+      className="fixed inset-0 z-[70] flex items-center justify-center p-4 md:p-10
         bg-black/75 backdrop-blur-2xl"
       onClick={onClose}
       role="dialog"
@@ -314,16 +324,34 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
         </div>
 
         <div className="px-7 py-7 space-y-7">
-          <p className="text-slate-400 text-sm leading-relaxed">{project.caseStudy.overview}</p>
+          <section className="glass border border-white/[0.06] rounded-2xl p-5">
+            <p className="eyebrow mb-2">PROJECT Summary</p>
+            <p className="text-slate-300 text-sm leading-relaxed">{project.caseStudy.overview}</p>
+            {project.caseStudy.snapshot && (
+              <div className="mt-4 flex flex-wrap gap-1.5 border-t border-white/[0.05] pt-4">
+                {project.caseStudy.snapshot.map((item) => (
+                  <span key={item} className={`${a.tag} text-[11px]`}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            )}
+          </section>
 
           {/* Problem / Solution */}
           <div className="grid md:grid-cols-2 gap-4">
             <div className="glass border border-red-500/10 rounded-2xl p-5">
-              <p className="font-syne font-semibold text-red-400 text-sm mb-2">The Problem</p>
+              <div className="mb-2 flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-red-400" />
+                <p className="font-syne font-semibold text-red-400 text-sm">The Problem</p>
+              </div>
               <p className="text-slate-400 text-sm leading-relaxed">{project.problem}</p>
             </div>
             <div className="glass border border-emerald-500/10 rounded-2xl p-5">
-              <p className="font-syne font-semibold text-emerald-400 text-sm mb-2">My Solution</p>
+              <div className="mb-2 flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <p className="font-syne font-semibold text-emerald-400 text-sm">My Solution</p>
+              </div>
               <p className="text-slate-400 text-sm leading-relaxed">{project.solution}</p>
             </div>
           </div>
@@ -336,8 +364,11 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
 
           {/* Deep dive */}
           {project.caseStudy.sections.length > 0 && (
-            <div>
-              <p className="font-syne font-semibold text-slate-200 mb-4">Technical Deep Dive</p>
+            <div className="border-t border-white/[0.05] pt-6">
+              <div className="mb-4 flex items-center gap-2">
+                <Sparkles className={`h-4 w-4 ${a.text}`} />
+                <p className="font-syne font-semibold text-slate-200">Engineering Deep Dive</p>
+              </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 {project.caseStudy.sections.map((s) => (
                   <div key={s.title} className="glass border border-white/[0.06] rounded-xl p-4">
@@ -350,21 +381,24 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
           )}
 
           {/* Metrics */}
-          <div>
+          <div className="border-t border-white/[0.05] pt-6">
             <p className="font-syne font-semibold text-slate-200 mb-4">Impact &amp; Metrics</p>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {project.metrics.map((m) => (
                 <div key={m.label}
                   className="glass border border-white/[0.06] rounded-xl p-3 text-center">
                   <p className={`font-syne font-extrabold text-xl ${a.metricText}`}>{m.value}</p>
-                  <p className="text-slate-500 text-[10px] mt-1">{m.label}</p>
+                  <p className="text-slate-400 text-[10px] mt-1 font-medium">{m.label}</p>
+                  {m.description && (
+                    <p className="mt-1 text-[9px] leading-snug text-slate-600">{m.description}</p>
+                  )}
                 </div>
               ))}
             </div>
           </div>
 
           {/* Proof points */}
-          <div>
+          <div className="border-t border-white/[0.05] pt-6">
             <p className="font-syne font-semibold text-slate-200 mb-4">What This Demonstrates</p>
             <div className="space-y-2">
               {project.caseStudy.proofPoints.map((point) => (
@@ -388,10 +422,12 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
 
           {/* CTAs */}
           <div className="flex gap-3 pt-2 border-t border-white/[0.05]">
+            {/* Live demo hidden until project deployments are available.
             <a href={project.liveDemo} target="_blank" rel="noopener noreferrer"
               className="btn-primary text-xs py-2.5">
               <ExternalLink className="w-3.5 h-3.5" /> Live Demo
             </a>
+            */}
             <a href={project.github} target="_blank" rel="noopener noreferrer"
               className="btn-ghost text-xs py-2.5">
               <Github className="w-3.5 h-3.5" /> GitHub
@@ -399,7 +435,8 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 }
 
@@ -434,9 +471,11 @@ export default function Projects() {
             Things I&apos;ve{" "}
             <span className="text-gradient-sky">Shipped</span>
           </h2>
-          <p className="text-slate-500 text-sm max-w-lg mb-8">
-            Real architectures solving real problems. Click &ldquo;Full Case Study&rdquo; or
-            &ldquo;Details&rdquo; for the technical deep-dive.
+          <p className="max-w-lg mb-8">
+            <AnimatedShinyText variant="text" className="text-sm leading-relaxed">
+              Real architectures solving real problems. Click &ldquo;Full Case Study&rdquo; or
+              &ldquo;Details&rdquo; for the technical deep-dive.
+            </AnimatedShinyText>
           </p>
         </SectionReveal>
 

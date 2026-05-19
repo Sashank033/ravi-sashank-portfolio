@@ -1,39 +1,35 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import SectionReveal from "@/components/ui/SectionReveal";
 import {
   Mail, Phone, MapPin, Linkedin, Github,
-  Send, Copy, Check, Loader2
+  Copy, Check
 } from "lucide-react";
 import { profile } from "@/data/profile";
 import { copyToClipboard } from "@/lib/utils";
+import TypewriterText from "@/components/ui/TypewriterText";
+import CalendlyEmbed from "@/components/ui/CalendlyEmbed";
+import SocialIconGroup from "@/components/ui/SocialIconGroup";
+import LocationTag from "@/components/ui/LocationTag";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 
-type FormData = {
-  name: string;
-  email: string;
-  company: string;
-  role: string;
-  message: string;
-};
+const CONTACT_TYPEWRITER_PHRASES = [
+  "AI-powered Products" ,
+  "Full Stack Web Applications",
+  "Scalable backend APIs" ,
+  "Database-driven Dashboards" ,
+  "Modern SaaS Experiences",
+];
 
-type FormStatus = "idle" | "loading" | "success" | "error";
-
-const initialForm: FormData = {
-  name: "",
-  email: "",
-  company: "",
-  role: "",
-  message: "",
-};
+const CALENDLY_URL = "https://calendly.com/ravisashankdhulipala/30min";
 
 export default function Contact() {
-  const [form, setForm] = useState<FormData>(initialForm);
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [status, setStatus] = useState<FormStatus>("idle");
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   const handleCopy = async (text: string, type: "email" | "phone") => {
     await copyToClipboard(text);
@@ -44,60 +40,6 @@ export default function Contact() {
       setCopiedPhone(true);
       setTimeout(() => setCopiedPhone(false), 2200);
     }
-  };
-
-  const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-    if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.email.trim()) newErrors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      newErrors.email = "Enter a valid email";
-    if (!form.message.trim()) newErrors.message = "Message is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-    setStatus("loading");
-
-    /**
-     * ─── HOW TO CONNECT THIS FORM ──────────────────────────────────────────
-     *
-     * Option 1 — Formspree (easiest, free tier available):
-     *   1. Go to https://formspree.io and create a form
-     *   2. Replace the fetch URL below with your Formspree endpoint
-     *   3. Remove the simulated delay / toggle to real fetch
-     *
-     *   const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-     *     method: "POST",
-     *     headers: { "Content-Type": "application/json" },
-     *     body: JSON.stringify(form),
-     *   });
-     *   if (res.ok) setStatus("success"); else setStatus("error");
-     *
-     * Option 2 — EmailJS (client-side, no backend):
-     *   import emailjs from "@emailjs/browser";
-     *   await emailjs.send(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY);
-     *
-     * Option 3 — Next.js API Route (app/api/contact/route.ts):
-     *   const res = await fetch("/api/contact", {
-     *     method: "POST",
-     *     headers: { "Content-Type": "application/json" },
-     *     body: JSON.stringify(form),
-     *   });
-     *
-     * Option 4 — Resend (recommended for Next.js):
-     *   Use the /api/contact route with the Resend SDK
-     *   https://resend.com/docs/send-with-nextjs
-     * ────────────────────────────────────────────────────────────────────────
-     */
-
-    // Simulated submission — replace with real handler above
-    await new Promise((r) => setTimeout(r, 1800));
-    setStatus("success");
-    setForm(initialForm);
   };
 
   const contactLinks = [
@@ -154,7 +96,38 @@ export default function Contact() {
       className="section-padding max-w-7xl mx-auto"
       aria-labelledby="contact-heading"
     >
-      <SectionReveal>
+      <SectionReveal className="relative">
+        <div className="absolute right-40 top-10 z-10 hidden w-48 flex-col items-center md:flex">
+          <div
+            className="contact-avatar-badge relative h-24 w-24 overflow-visible rounded-full"
+            aria-label="Ravi Sashank profile photo"
+          >
+            <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-sky-400/55 bg-navy-900 shadow-[0_0_24px_rgba(56,189,248,0.26),0_18px_48px_rgba(0,0,0,0.42)]">
+              <div className="flex h-full w-full items-center justify-center bg-sky-500/10 font-syne text-xl font-bold text-sky-300">
+                RS
+              </div>
+              {!avatarFailed && (
+                <Image
+                  src="/profile.jpg"
+                  alt="Ravi Sashank profile photo"
+                  fill
+                  sizes="96px"
+                  className="object-cover object-[50%_30%]"
+                  priority={false}
+                  onError={() => setAvatarFailed(true)}
+                />
+              )}
+            </div>
+            <span className="absolute bottom-2 right-2 h-4 w-4 rounded-full border-2 border-navy-950 bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.85)]" />
+          </div>
+          <div className="mt-4 flex flex-col items-center">
+            <LocationTag />
+          </div>
+          <AnimatedShinyText className="mt-1.5">
+            ✨ Hover to see my local time ⤴
+          </AnimatedShinyText>
+        </div>
+
         <div className="flex items-center gap-3 mb-4">
           <span className="tag">Contact</span>
           <div className="h-px flex-1 bg-gradient-to-r from-sky-500/30 to-transparent" />
@@ -163,9 +136,24 @@ export default function Contact() {
           Let&apos;s{" "}
           <span className="text-gradient-sky">Work Together</span>
         </h2>
-        <p className="text-slate-400 text-sm max-w-xl mb-12">
-          I&apos;m actively looking for Full Stack, Software Engineer, and Frontend roles.
-          Reach out directly or use the form below.
+        <div className="mb-3 min-h-[1.5rem]">
+          <TypewriterText
+            staticText="Let's Build : "
+            phrases={CONTACT_TYPEWRITER_PHRASES}
+            className="block font-syne text-sm font-semibold leading-relaxed text-slate-500"
+            phraseClassName="text-sky-400"
+            phraseMinWidthClassName="inline-block sm:min-w-[17rem]"
+            cursorClassName="text-sky-400"
+            typeSpeed={52}
+            deleteSpeed={30}
+            pauseMs={1550}
+          />
+        </div>
+        <p className="max-w-xl mb-12">
+          <AnimatedShinyText variant="text" className="text-sm leading-relaxed">
+            I&apos;m actively looking for Full Stack, Software Engineer, and Frontend roles.
+            Reach out directly or book a quick call below.
+          </AnimatedShinyText>
         </p>
       </SectionReveal>
 
@@ -227,6 +215,8 @@ export default function Contact() {
             );
           })}
 
+          <SocialIconGroup className="w-full" />
+
           {/* Availability notice */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -246,166 +236,24 @@ export default function Contact() {
           </motion.div>
         </div>
 
-        {/* Right — form */}
+        {/* Right — Calendly booking */}
         <SectionReveal className="lg:col-span-3" delay={0.15} direction="right">
-          <div className="glass border border-white/[0.07] rounded-2xl p-7">
+          <div className="glass border border-sky-500/15 rounded-2xl p-5 md:p-7 shadow-[0_24px_70px_rgba(14,165,233,0.08)]">
+            <div className="mb-5">
+              <span className="badge bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px]">
+                15 min intro call
+              </span>
+             
+              <p className="text-slate-400 text-sm leading-relaxed mt-2">
+                Schedule a time to discuss full-stack, frontend, software engineering, or
+                AI-integrated roles.
+              </p>
+            </div>
 
-            {status === "success" ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center py-16 text-center gap-4"
-              >
-                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30
-                  flex items-center justify-center">
-                  <Check className="w-8 h-8 text-emerald-400" />
-                </div>
-                <h3 className="font-syne font-bold text-slate-100 text-xl">Message Sent!</h3>
-                <p className="text-slate-400 text-sm max-w-xs">
-                  Thanks for reaching out. I&apos;ll get back to you within 24 hours.
-                </p>
-                <button
-                  onClick={() => setStatus("idle")}
-                  className="btn-ghost text-xs mt-2 py-2"
-                >
-                  Send another message
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate aria-label="Contact form">
-                <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                  {/* Name */}
-                  <div>
-                    <label htmlFor="contact-name" className="block text-slate-400 text-xs mb-1.5">
-                      Name <span className="text-sky-400">*</span>
-                    </label>
-                    <input
-                      id="contact-name"
-                      type="text"
-                      className={`form-input ${errors.name ? "border-red-500/50" : ""}`}
-                      placeholder="Your name"
-                      value={form.name}
-                      onChange={(e) => {
-                        setForm((p) => ({ ...p, name: e.target.value }));
-                        if (errors.name) setErrors((p) => ({ ...p, name: "" }));
-                      }}
-                      aria-required="true"
-                      aria-describedby={errors.name ? "name-error" : undefined}
-                    />
-                    {errors.name && (
-                      <p id="name-error" className="text-red-400 text-[10px] mt-1">{errors.name}</p>
-                    )}
-                  </div>
-
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="contact-email" className="block text-slate-400 text-xs mb-1.5">
-                      Email <span className="text-sky-400">*</span>
-                    </label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      className={`form-input ${errors.email ? "border-red-500/50" : ""}`}
-                      placeholder="your@email.com"
-                      value={form.email}
-                      onChange={(e) => {
-                        setForm((p) => ({ ...p, email: e.target.value }));
-                        if (errors.email) setErrors((p) => ({ ...p, email: "" }));
-                      }}
-                      aria-required="true"
-                      aria-describedby={errors.email ? "email-error" : undefined}
-                    />
-                    {errors.email && (
-                      <p id="email-error" className="text-red-400 text-[10px] mt-1">{errors.email}</p>
-                    )}
-                  </div>
-
-                  {/* Company */}
-                  <div>
-                    <label htmlFor="contact-company" className="block text-slate-400 text-xs mb-1.5">
-                      Company
-                    </label>
-                    <input
-                      id="contact-company"
-                      type="text"
-                      className="form-input"
-                      placeholder="Company name (optional)"
-                      value={form.company}
-                      onChange={(e) => setForm((p) => ({ ...p, company: e.target.value }))}
-                    />
-                  </div>
-
-                  {/* Role/Opportunity */}
-                  <div>
-                    <label htmlFor="contact-role" className="block text-slate-400 text-xs mb-1.5">
-                      Role / Opportunity
-                    </label>
-                    <input
-                      id="contact-role"
-                      type="text"
-                      className="form-input"
-                      placeholder="e.g. Full Stack Developer"
-                      value={form.role}
-                      onChange={(e) => setForm((p) => ({ ...p, role: e.target.value }))}
-                    />
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="mb-6">
-                  <label htmlFor="contact-message" className="block text-slate-400 text-xs mb-1.5">
-                    Message <span className="text-sky-400">*</span>
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    rows={5}
-                    className={`form-input resize-none ${errors.message ? "border-red-500/50" : ""}`}
-                    placeholder="Tell me about the opportunity, role, or just say hello..."
-                    value={form.message}
-                    onChange={(e) => {
-                      setForm((p) => ({ ...p, message: e.target.value }));
-                      if (errors.message) setErrors((p) => ({ ...p, message: "" }));
-                    }}
-                    aria-required="true"
-                    aria-describedby={errors.message ? "message-error" : undefined}
-                  />
-                  {errors.message && (
-                    <p id="message-error" className="text-red-400 text-[10px] mt-1">{errors.message}</p>
-                  )}
-                </div>
-
-                {status === "error" && (
-                  <p className="text-red-400 text-xs mb-4 glass border border-red-500/20 rounded-lg px-4 py-3">
-                    Something went wrong. Please email me directly at {profile.email}
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="btn-primary w-full justify-center py-3.5 disabled:opacity-60
-                    disabled:cursor-not-allowed disabled:hover:translate-y-0"
-                  aria-label="Send message"
-                >
-                  {status === "loading" ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-
-                <p className="text-slate-600 text-[10px] text-center mt-4">
-                  {/* Connect to Formspree, EmailJS, or a Next.js API route — see comments above */}
-                  Your message is handled securely. I typically respond within 24 hours.
-                </p>
-              </form>
-            )}
+            <CalendlyEmbed
+              url={CALENDLY_URL}
+              title="Intro Call with Ravi Sashank Dhulipala"
+            />
           </div>
         </SectionReveal>
       </div>

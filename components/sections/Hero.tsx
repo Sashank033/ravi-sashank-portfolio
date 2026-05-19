@@ -1,31 +1,13 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { MapPin, Download, ArrowDown, Github, Linkedin, ExternalLink } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import { MapPin, Download, ArrowDown, ExternalLink } from "lucide-react";
+import { useRef } from "react";
 import { profile } from "@/data/profile";
-
-/* ── Animated counter hook ─────────────────────────── */
-function useCounter(target: number, inView: boolean, delay = 0, duration = 1400) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const timeout = setTimeout(() => {
-      let frame = 0;
-      const totalFrames = Math.round(duration / 16);
-      const timer = setInterval(() => {
-        frame++;
-        const p = frame / totalFrames;
-        const ease = 1 - Math.pow(1 - p, 3); // easeOutCubic
-        setVal(Math.min(Math.round(target * ease), target));
-        if (frame >= totalFrames) clearInterval(timer);
-      }, 16);
-      return () => clearInterval(timer);
-    }, delay);
-    return () => clearTimeout(timeout);
-  }, [inView, target, delay, duration]);
-  return val;
-}
+import TypewriterText from "@/components/ui/TypewriterText";
+import CountUpNumber from "@/components/ui/CountUpNumber";
+import SocialIconGroup from "@/components/ui/SocialIconGroup";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 
 const STATS = [
   { value: 3,   suffix: "+", label: "Years of\nFull-Stack Experience", color: "text-sky-400" },
@@ -34,10 +16,18 @@ const STATS = [
   { value: 4,   suffix: "",  label: "Production\nProducts Shipped",       color: "text-amber-400" },
 ];
 
+const HERO_TYPEWRITER_PHRASES = [
+  "Full-Stack Web Applications",
+  "AI-Powered Job Tools",
+  "Responsive React Interfaces",
+  "Scalable REST APIs",
+  "PostgreSQL Dashboards",
+  "Production-Ready User Experiences",
+];
+
 function StatCard({ stat, inView, index }: {
   stat: typeof STATS[0]; inView: boolean; index: number;
 }) {
-  const count = useCounter(stat.value, inView, index * 180);
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -46,7 +36,8 @@ function StatCard({ stat, inView, index }: {
       className="stat-card group"
     >
       <p className={`stat-number ${stat.color}`}>
-        {count}{stat.suffix}
+        <CountUpNumber value={stat.value} start={inView} delayMs={index * 120} durationMs={1250} />
+        {stat.suffix}
       </p>
       <p className="stat-label whitespace-pre-line leading-relaxed">{stat.label}</p>
     </motion.div>
@@ -119,20 +110,37 @@ export default function Hero() {
               >
                 Full Stack Developer &amp; Software Engineer
               </motion.p>
+
+              <motion.div
+                {...fadeUp(0.24)}
+                className="mt-4 min-h-[3.2rem] md:min-h-[2rem]"
+              >
+                <TypewriterText
+                  staticText="I build"
+                  phrases={HERO_TYPEWRITER_PHRASES}
+                  className="block font-syne text-xl md:text-2xl font-bold leading-snug text-slate-200"
+                  phraseClassName="text-gradient-hero"
+                  phraseMinWidthClassName="inline-block md:min-w-[23rem]"
+                  cursorClassName="text-sky-400"
+                  typeSpeed={44}
+                  deleteSpeed={26}
+                  pauseMs={1350}
+                />
+              </motion.div>
             </div>
 
             {/* Headline */}
             <motion.p
-              {...fadeUp(0.27)}
+              {...fadeUp(0.3)}
               className="text-slate-400 text-[15px] md:text-base leading-relaxed max-w-xl"
             >
-              I build full-stack web applications with React, Next.js, Node.js, PostgreSQL,
-              and AWS — including AI-powered features, REST APIs, and scalable data workflows.
+              I build full stack web applications with React, Next.js, Node.js, PostgreSQL,
+              and AWS, including AI Powered Features, REST APIs, and scalable data workflows.
               3+ years of production experience across multiple business domains.
             </motion.p>
 
             {/* CTA row */}
-            <motion.div {...fadeUp(0.34)} className="flex flex-wrap gap-3">
+            <motion.div {...fadeUp(0.37)} className="flex flex-wrap gap-3">
               <a
                 href={profile.resume}
                 download
@@ -152,33 +160,20 @@ export default function Hero() {
 
             {/* Social icons + stack strip */}
             <motion.div
-              {...fadeUp(0.4)}
+              {...fadeUp(0.43)}
               className="flex items-center gap-4 pt-1"
             >
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-icon"
-                aria-label="LinkedIn profile"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-icon"
-                aria-label="GitHub profile"
-              >
-                <Github className="w-4 h-4" />
-              </a>
+              <SocialIconGroup variant="icons" items={["linkedin", "github"]} />
               <span className="w-px h-5 bg-white/10" />
               <div className="flex flex-wrap gap-x-3 gap-y-1">
                 {["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS", "OpenAI"].map((t) => (
-                  <span key={t} className="text-slate-600 text-xs hover:text-slate-400 transition-colors cursor-default">
+                  <AnimatedShinyText
+                    key={t}
+                    variant="text"
+                    className="text-xs transition-colors cursor-default"
+                  >
                     {t}
-                  </span>
+                  </AnimatedShinyText>
                 ))}
               </div>
             </motion.div>
@@ -219,12 +214,20 @@ export default function Hero() {
                 <div className="my-5 h-px bg-white/[0.06]" />
 
                 {/* Quick proof line */}
-                <div className="flex items-start gap-3 p-3 rounded-xl bg-sky-500/5 border border-sky-500/15">
+                <a
+                  href="https://www.usf.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open University of South Florida website"
+                  className="flex items-start gap-3 p-3 rounded-xl bg-sky-500/5 border border-sky-500/15
+                    transition-all duration-200 hover:border-sky-500/30 hover:bg-sky-500/10
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40"
+                >
                   <ExternalLink className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
                   <p className="text-slate-400 text-xs leading-relaxed">
                     MS Computer Science · University of South Florida · May 2025
                   </p>
-                </div>
+                </a>
               </div>
             </motion.div>
           </div>

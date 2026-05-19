@@ -1,5 +1,5 @@
-import { Github, Linkedin, Mail, Code2 } from "lucide-react";
 import { profile } from "@/data/profile";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -7,49 +7,15 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/[0.06] py-12 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col items-center justify-center gap-6">
           {/* Brand */}
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <p className="font-syne font-bold text-lg text-gradient-sky">{profile.nameShort}.</p>
-            <p className="text-slate-500 text-sm mt-1">{profile.title}</p>
-          </div>
-
-          {/* Socials */}
-          <div className="flex items-center gap-4">
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 glass border border-white/10 rounded-lg flex items-center justify-center
-                text-slate-400 hover:text-sky-400 hover:border-sky-500/30 transition-all duration-200"
-              aria-label="LinkedIn profile"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a
-              href={profile.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 glass border border-white/10 rounded-lg flex items-center justify-center
-                text-slate-400 hover:text-sky-400 hover:border-sky-500/30 transition-all duration-200"
-              aria-label="GitHub profile"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              className="w-9 h-9 glass border border-white/10 rounded-lg flex items-center justify-center
-                text-slate-400 hover:text-sky-400 hover:border-sky-500/30 transition-all duration-200"
-              aria-label="Send email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
-          </div>
-
-          {/* Built with */}
-          <div className="flex items-center gap-1.5 text-slate-500 text-xs">
-            <Code2 className="w-3.5 h-3.5" />
-            <span>Built with Next.js, TypeScript & Tailwind CSS</span>
+            <p className="mt-1">
+              <AnimatedShinyText variant="text" className="text-sm">
+                {profile.title}
+              </AnimatedShinyText>
+            </p>
           </div>
         </div>
 

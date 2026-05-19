@@ -1,6 +1,7 @@
 "use client";
 
 import SectionReveal from "@/components/ui/SectionReveal";
+import TextScramble from "@/components/ui/TextScramble";
 import { profile } from "@/data/profile";
 import { Code2, Layers, Cpu, Users } from "lucide-react";
 
@@ -57,8 +58,8 @@ export default function About() {
         </div>
 
         <h2 id="about-heading" className="section-title text-slate-100 mb-5">
-          I ship full-stack products.{" "}
-          <span className="text-gradient-sky">End to end.</span>
+          <TextScramble text="I ship full-stack products." />{" "}
+          <TextScramble text="End to end." className="text-gradient-sky" />
         </h2>
       </SectionReveal>
 
@@ -69,23 +70,23 @@ export default function About() {
           <SectionReveal delay={0.08}>
             <p className="text-slate-400 leading-relaxed text-[15px]">
               I&apos;m a Full Stack Developer with 3+ years of production experience across the
-              complete web stack — React UIs, Node.js APIs, PostgreSQL databases, cloud
+              complete web stack, React UIs, Node.js APIs, PostgreSQL databases, cloud
               infrastructure on AWS, and AI integrations using OpenAI&apos;s API.
             </p>
           </SectionReveal>
           <SectionReveal delay={0.14}>
             <p className="text-slate-400 leading-relaxed text-[15px]">
-              My work is driven by a product-first mindset: build reusable components,
+              My work is driven by a product first mindset: build reusable components,
               write maintainable code, optimize for real user impact, and ship with confidence.
-              I&apos;ve delivered measurable improvements — 25% faster page responsiveness,
-              35% reduction in build time, 60% less manual operations work — by focusing
+              I&apos;ve delivered measurable improvements by 25% faster page responsiveness,
+              35% reduction in build time, 60% less manual operations work, by focusing
               on architecture, not just features.
             </p>
           </SectionReveal>
           <SectionReveal delay={0.2}>
             <p className="text-slate-400 leading-relaxed text-[15px]">
               Based in Denton, TX (DFW). Open To Relocate  for Full Stack, Software Engineer,
-              and Frontend roles — remote, hybrid, or on-site.
+              and Frontend roles — Remote, Hybrid, or On-site.
             </p>
           </SectionReveal>
 

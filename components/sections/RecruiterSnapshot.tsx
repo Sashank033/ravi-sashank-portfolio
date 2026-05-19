@@ -6,6 +6,7 @@ import {
   Briefcase, GraduationCap, Zap, MapPin,
   TestTube, Cloud, GitBranch, Sparkles
 } from "lucide-react";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 
 const facts = [
   {
@@ -107,7 +108,12 @@ export default function RecruiterSnapshot() {
                 <p className={`font-syne font-bold text-sm leading-none mb-1 ${c.text}`}>
                   {fact.value}
                 </p>
-                <p className="text-slate-600 text-[10px] leading-snug">{fact.label}</p>
+                <AnimatedShinyText
+                  variant="text"
+                  className="text-[10px] leading-snug"
+                >
+                  {fact.label}
+                </AnimatedShinyText>
               </div>
             </motion.div>
           );
