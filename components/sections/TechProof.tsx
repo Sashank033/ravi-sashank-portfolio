@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionReveal from "@/components/ui/SectionReveal";
+import AnimatedShinyText from "@/components/ui/AnimatedShinyText";
 import {
   Monitor, Server, Database, Shield,
   Sparkles, TestTube, Cloud, Gauge,
@@ -138,9 +139,11 @@ export default function TechProof() {
           What I Build,{" "}
           <span className="text-gradient-emerald">and How.</span>
         </h2>
-        <p className="text-slate-500 text-sm max-w-xl mb-12">
-          Concrete capabilities across every layer of the stack — with
-          real project context behind each one.
+        <p className="max-w-xl mb-12">
+          <AnimatedShinyText variant="text" className="text-sm leading-relaxed">
+            Concrete capabilities across every layer of the stack — with
+            real project context behind each one.
+          </AnimatedShinyText>
         </p>
       </SectionReveal>
 

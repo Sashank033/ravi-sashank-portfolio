@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, FileText } from "lucide-react";
-import ThemeToggle from "@/components/ui/ThemeToggle";
 import { navLinks } from "@/data/socials";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
@@ -55,8 +54,8 @@ export default function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "py-3 glass border-b border-white/[0.055] shadow-2xl"
-            : "py-5 bg-transparent"
+            ? "py-4 glass border-b border-white/[0.055] shadow-2xl"
+            : "py-6 bg-transparent"
         )}
         role="banner"
       >
@@ -65,7 +64,7 @@ export default function Navbar() {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-syne font-extrabold text-lg tracking-tight text-gradient-sky
+            className="font-syne font-extrabold text-xl tracking-tight text-gradient-sky
               hover:opacity-80 transition-opacity focus-visible:outline-none
               focus-visible:ring-2 focus-visible:ring-sky-500 rounded"
             aria-label="Scroll to top"
@@ -83,7 +82,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "relative px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+                    "relative px-5 py-2.5 rounded-lg text-[15px] font-medium transition-colors duration-200",
                     isActive ? "text-sky-400" : "text-slate-500 hover:text-slate-200"
                   )}
                 >
@@ -102,14 +101,13 @@ export default function Navbar() {
 
           {/* Right controls */}
           <div className="flex items-center gap-2.5">
-            <ThemeToggle />
             <a
               href={profile.resume}
               download
-              className="hidden md:flex btn-primary py-2 px-4 text-xs"
+              className="hidden md:flex btn-primary py-2.5 px-5 text-sm"
               aria-label="Download resume"
             >
-              <FileText className="w-3.5 h-3.5" />
+              <FileText className="w-4 h-4" />
               Resume
             </a>
 

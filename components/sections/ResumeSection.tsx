@@ -64,7 +64,7 @@ export default function ResumeSection() {
               </a>
             </div>
 
-            <p className="text-slate-600 text-xs mt-8">
+            <p className="text-slate-500 text-xs mt-8">
               {profile.location} · {profile.email} · {profile.phone}
             </p>
           </div>

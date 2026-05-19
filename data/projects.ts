@@ -10,11 +10,12 @@ export type Project = {
   role: string;
   tech: string[];
   highlights: string[];
-  metrics: { label: string; value: string }[];
+  metrics: { label: string; value: string; description?: string }[];
   architecture?: string;
   challenges?: string[];
   caseStudy: {
     overview: string;
+    snapshot?: string[];
     sections: { title: string; content: string }[];
     proofPoints: string[];
   };
@@ -29,16 +30,16 @@ export const projects: Project[] = [
   {
     id: "applywise-ai",
     title: "ApplyWise AI",
-    subtitle: "Full-Stack AI Job Application & ATS Analyzer",
+    subtitle: "Full Stack AI Job Application & ATS Analyzer",
     tagline:
-      "An end-to-end AI-powered job tracker that parses resumes, scores ATS compatibility, detects skill gaps, and visualizes your job search pipeline.",
+      "An end to end AI powered job tracker that parses resumes, scores ATS compatibility, detects skill gaps, and visualizes your job search pipeline.",
     category: ["Full Stack", "AI", "Dashboard"],
     featured: true,
     problem:
-      "Job seekers waste hours tailoring resumes without knowing if they pass ATS filters. There was no integrated tool that combined job tracking, resume analysis, AI-powered scoring, and skill gap detection in one workflow.",
+      "Job seekers waste hours tailoring resumes manually and lack a clear way to compare resumes against job descriptions, missing keywords, and ATS requirements.",
     solution:
-      "Built a full-stack platform with Next.js, TypeScript, Prisma, and PostgreSQL that parses uploaded resumes, scores them against job descriptions using OpenAI API (with local fallback), detects missing skills, and surfaces analytics across the entire job search pipeline.",
-    role: "Solo Full-Stack Engineer — architected and built all 6+ modules from database schema to UI.",
+      "Built a full stack AI workflow that parses resumes, compares them against job descriptions, scores fit, detects missing skills, and visualizes job-search performance through dashboards.",
+    role: "Owned the end to end architecture across UI, API routes, Prisma/PostgreSQL models, resume parsing, OpenAI scoring workflows, analytics dashboard, and Jest/RTL testing.",
     tech: [
       "Next.js",
       "TypeScript",
@@ -51,7 +52,7 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     highlights: [
-      "Resume upload with PDF parsing, local/S3 fallback, and user-scoped storage",
+      "Resume upload with PDF parsing, local/S3 fallback, and user scoped storage",
       "ATS analyzer using OpenAI API with local keyword fallback matching",
       "Detects 15+ skill gaps between resume and job description",
       "Analytics dashboard: status, response rate, ATS scores, top matches",
@@ -60,84 +61,92 @@ export const projects: Project[] = [
       "6+ user workflow modules: upload, analyze, track, review, compare, report",
     ],
     metrics: [
-      { label: "Test Suites", value: "11" },
-      { label: "Tests Passing", value: "100" },
-      { label: "Workflow Modules", value: "6+" },
-      { label: "Skill Gaps Detected", value: "15+" },
-      { label: "DB Entities", value: "6+" },
-      { label: "Resume Workflows", value: "3+" },
+      { label: "Tests Passing", value: "100", description: "Jest + RTL coverage across core workflows" },
+      { label: "Test Suites", value: "11", description: "API, hooks, utilities, and UI validation" },
+      { label: "Workflow Modules", value: "6+", description: "Upload, analyze, track, compare, review, report" },
+      { label: "Skill Gaps Detected", value: "15+", description: "Resume to job keyword and requirement gaps" },
+      { label: "DB Entities", value: "6+", description: "Relational Prisma/PostgreSQL data model" },
+      { label: "Resume Workflows", value: "3+", description: "Parsing, scoring, and improvement workflows" },
     ],
     architecture:
       "Next.js App Router for SSR/SSG, Prisma ORM connected to PostgreSQL (AWS RDS / local), OpenAI API with graceful local fallback, AWS S3 for file storage with local filesystem fallback, Jest + RTL for full test coverage across API routes, hooks, utilities, and UI components.",
     challenges: [
       "Implementing reliable PDF parsing across diverse resume formats and encoding edge cases",
       "Designing a graceful fallback for OpenAI API calls during rate limits or outages using local keyword matching",
-      "Modeling a flexible Prisma schema that supports user-scoped multi-resume, multi-job-analysis workflows",
+      "Modeling a flexible Prisma schema that supports user scoped multi resume, multi job analysis workflows",
       "Achieving 100 test cases across API routes, React hooks, utility functions, and UI components",
     ],
     caseStudy: {
       overview:
-        "ApplyWise AI is the most technically complex project in this portfolio. It demonstrates full-stack architecture, AI API integration, database design, testing discipline, and practical product thinking applied to the real problem of job searching.",
+        "A production style AI job application platform that helps job seekers parse resumes, score ATS fit, detect skill gaps, and track applications through OpenAI-powered analysis, PostgreSQL data modeling, analytics dashboards, and tested full-stack workflows.",
+      snapshot: [
+        "Next.js + TypeScript",
+        "PostgreSQL + Prisma",
+        "OpenAI API",
+        "Resume Parsing",
+        "ATS Scoring",
+        "100 Tests / 11 Suites",
+      ],
       sections: [
         {
           title: "Resume Upload & Parsing",
           content:
-            "Built a multi-layer upload pipeline supporting PDF parsing with local filesystem and S3 fallback. User-scoped storage ensures each user only accesses their own resume data.",
+            "Built the upload and parsing flow for PDF resumes, with user scoped storage and fallback handling so resume data can be processed reliably before scoring.",
         },
         {
           title: "ATS Scoring Engine",
           content:
-            "Integrates OpenAI API to analyze resume-to-job-description alignment. Includes a robust local fallback using keyword frequency analysis, ensuring the feature works even without API access.",
-        },
-        {
-          title: "Skill Gap Detection",
-          content:
-            "Compares extracted skills from uploaded resume against job description requirements, surfacing a ranked list of missing or underrepresented skills with actionable suggestions.",
-        },
-        {
-          title: "Analytics Dashboard",
-          content:
-            "A real-time dashboard displaying application status distribution, ATS score trends, response rates, and top-matched job roles — giving users full pipeline visibility.",
+            "Designed the scoring workflow that compares resume content against job descriptions, evaluates fit, and surfaces missing skills in a recruiter-friendly analysis flow.",
         },
         {
           title: "Database Architecture",
           content:
-            "Prisma/PostgreSQL schema covers 6+ entities: Users, Resumes, Jobs, Analyses, Keywords, and Logs. Designed for extensibility with clear relational integrity.",
+            "Modeled the core Prisma/PostgreSQL schema across users, resumes, jobs, analyses, keywords, and logs with clear relationships for extensible workflows.",
+        },
+        {
+          title: "Analytics Dashboard",
+          content:
+            "Built dashboards for application status, ATS score trends, response rates, and matched roles so users can understand their job search pipeline at a glance.",
         },
         {
           title: "Testing Coverage",
           content:
-            "100 tests across 11 suites covering API route handlers, custom React hooks, utility functions, and UI components using Jest and React Testing Library.",
+            "Covered API routes, hooks, utilities, and UI components with Jest and React Testing Library, reaching 100 passing tests across 11 suites.",
+        },
+        {
+          title: "Fallback & Reliability",
+          content:
+            "Added graceful fallback behavior for AI analysis so keyword matching can still provide useful results when external API calls are unavailable.",
         },
       ],
       proofPoints: [
-        "Can architect and build a production-grade full-stack AI product from scratch",
-        "Understands API design, error handling, and graceful degradation",
-        "Writes maintainable, tested code across the full stack",
-        "Designs normalized database schemas with Prisma ORM",
-        "Integrates AI APIs responsibly with fallback logic",
-        "Builds analytics dashboards with real business value",
+        "Full stack architecture from database to UI",
+        "AI API integration with practical fallback logic",
+        "Resume parsing and ATS style keyword matching",
+        "PostgreSQL/Prisma schema design",
+        "Tested production style workflows",
+        "Dashboard and analytics product thinking",
       ],
     },
     liveDemo: "LIVE_DEMO_URL_HERE",
-    github: "https://github.com/Sashank033",
+    github: "https://github.com/Sashank033/applywise-ai.git",
     color: "from-sky-500/20 to-violet-500/20",
     accentColor: "sky",
     icon: "Brain",
   },
   {
     id: "chat-desk",
-    title: "Chat Desk",
-    subtitle: "Full-Stack AI Chatbot Platform",
+    title: "Chat Desk AI",
+    subtitle: "A Full Stack Multi Chat Platform with seamless login to multiple users",
     tagline:
-      "A real-time chatbot platform with saved history, authentication, REST APIs, and optimized PostgreSQL backends.",
+      "A real time chatbot platform with saved history, authentication, REST APIs, and optimized PostgreSQL backends.",
     category: ["Full Stack", "Backend", "AI"],
     featured: true,
     problem:
-      "Needed a full-stack chat platform with secure multi-user support, persistent message history, real-time responses, and robust reporting workflows — not just a simple chat widget.",
+      "Teams need reliable chat platforms that can support authenticated users, persistent message history, fast API responses, and clean frontend-backend communication without fragile state handling.",
     solution:
-      "Built a complete platform with React.js, Node.js, PostgreSQL, and REST APIs featuring authentication, message handling, API orchestration, optimized SQL queries, and sub-200ms API response times.",
-    role: "Full-Stack Engineer — built frontend, backend services, database schema, and API orchestration.",
+      "Built a full-stack chat platform with React, Node.js, REST APIs, PostgreSQL, authentication workflows, message handling services, and optimized SQL queries to support saved conversations and sub-200ms API response times.",
+    role: "Owned frontend interfaces, backend API services, authentication flows, PostgreSQL schema design, message history workflows, API orchestration, and reporting-ready data structures.",
     tech: [
       "React.js",
       "Node.js",
@@ -148,7 +157,7 @@ export const projects: Project[] = [
       "SQL",
     ],
     highlights: [
-      "Real-time conversations with persistent saved chat history",
+      "Real time conversations with persistent saved chat history",
       "Secure authentication workflows with backend auth services",
       "Sub-200ms average API response times during testing",
       "PostgreSQL schemas with optimized SQL queries",
@@ -156,40 +165,65 @@ export const projects: Project[] = [
       "Message handling, API orchestration, and reporting workflows",
     ],
     metrics: [
-      { label: "API Response", value: "<200ms" },
-      { label: "Auth Workflows", value: "Secure" },
-      { label: "DB Schema", value: "Optimized" },
-      { label: "Modules", value: "Multi" },
+      { label: "API Response", value: "<200ms", description: "Average response target during application testing" },
+      { label: "Auth Workflows", value: "Secure", description: "Protected access for saved user conversations" },
+      { label: "DB Schema", value: "Optimized", description: "PostgreSQL models for chat history retrieval" },
+      { label: "Platform Scope", value: "Multi", description: "Frontend, APIs, auth, data, and reporting flows" },
     ],
     caseStudy: {
       overview:
-        "Chat Desk demonstrates backend architecture, authentication design, database optimization, and REST API development in a production-grade chat platform.",
+        "Chat Desk AI is a full-stack chatbot platform that combines secure authentication, REST API orchestration, PostgreSQL-backed chat history, optimized data retrieval, and modular backend services for real-time-style user conversations.",
+      snapshot: [
+        "React + Node.js",
+        "REST APIs",
+        "PostgreSQL",
+        "Authentication",
+        "Saved Chat History",
+        "Sub-200ms Responses",
+      ],
       sections: [
         {
           title: "Authentication & Security",
           content:
-            "Implemented backend authentication workflows with secure session management, protecting user data and message history.",
+            "Implemented secure user authentication workflows and session-based access patterns to protect user data and saved message history.",
         },
         {
-          title: "API Design",
+          title: "REST API Architecture",
           content:
-            "Designed and built REST APIs for all communication between React frontend and Node.js backend, achieving consistent sub-200ms response times.",
+            "Designed API routes for chat creation, message handling, history retrieval, and frontend-backend communication with consistent response handling.",
         },
         {
-          title: "Database Optimization",
+          title: "PostgreSQL Data Modeling",
           content:
-            "Designed PostgreSQL schemas and optimized SQL queries for efficient message retrieval, data integrity, and scalable reporting workflows.",
+            "Designed database schemas for users, conversations, messages, and reporting workflows to support reliable persistence and retrieval.",
+        },
+        {
+          title: "API Performance",
+          content:
+            "Optimized backend queries and response handling to achieve sub-200ms average API responses during application testing.",
+        },
+        {
+          title: "Frontend Chat Experience",
+          content:
+            "Built responsive React interfaces for real-time-style conversations, saved history, and clean user interaction flows.",
+        },
+        {
+          title: "Maintainability",
+          content:
+            "Separated frontend, backend, auth, API orchestration, and database logic into modular workflows for easier debugging and future scaling.",
         },
       ],
       proofPoints: [
-        "Backend API design and Express.js service architecture",
-        "Authentication system design and implementation",
-        "PostgreSQL schema design and SQL query optimization",
-        "Full-stack feature integration across React and Node.js",
+        "Full-stack ownership across React, Node.js, REST APIs, and PostgreSQL",
+        "Authentication workflow implementation and protected user data handling",
+        "Backend API design for chat, history, and reporting workflows",
+        "Database schema design and SQL query optimization",
+        "Modular architecture for maintainable and scalable feature development",
+        "Practical product thinking around user conversations and saved history",
       ],
     },
     liveDemo: "LIVE_DEMO_URL_HERE",
-    github: "https://github.com/Sashank033",
+    github: "https://github.com/Sashank033/chatdesk.git",
     color: "from-violet-500/20 to-emerald-500/20",
     accentColor: "violet",
     icon: "MessageSquare",
@@ -199,57 +233,71 @@ export const projects: Project[] = [
     title: "Inventory Management Dashboard",
     subtitle: "React Operations & Forecasting Dashboard",
     tagline:
-      "A real-time inventory dashboard with run-out forecasting, low-stock alerts, and CSV/PDF export capabilities.",
+      "A real time inventory dashboard with run out forecasting, low stock alerts, and CSV/PDF export capabilities.",
     category: ["Dashboard", "Frontend", "Full Stack"],
     featured: true,
     problem:
-      "Operations teams were tracking inventory manually with spreadsheets, leading to stock discrepancies, reactive restocking, and slow reporting cycles.",
+      "Operations teams relied on manual inventory tracking, which made stock levels harder to monitor, delayed reporting, and increased the chance of stock discrepancies.",
     solution:
-      "Built a React dashboard using regression.js for run-out forecasting with real-time stock updates, automated low-stock alerts, and one-click CSV/PDF export — cutting manual tracking time by 60%.",
-    role: "Frontend & Full-Stack Engineer — designed and built all UI, hooks, forecasting logic, and export workflows.",
+      "Built a React operations dashboard with run-out forecasting, low-stock visibility, reusable UI logic, and CSV/PDF export workflows to make inventory review faster and more consistent.",
+    role: "Owned the dashboard UI, reusable React components, forecasting workflow, export logic, and data presentation patterns for operational users.",
     tech: ["React.js", "JavaScript", "regression.js", "CSV Export", "PDF Export", "Tailwind CSS"],
     highlights: [
-      "Real-time stock updates with 15% reduction in tracking discrepancies",
-      "Run-out forecasting using regression.js, reducing manual tracking time by 60%",
-      "Automated low-stock alerts with configurable thresholds",
+      "Real time stock updates with 15% reduction in tracking discrepancies",
+      "Run out forecasting using regression.js, reducing manual tracking time by 60%",
+      "Automated low stock alerts with configurable thresholds",
       "CSV/PDF exports for inventory reports and operational visibility",
       "Reusable React hooks and components, improving maintainability by 20%",
     ],
     metrics: [
-      { label: "Tracking Discrepancies", value: "-15%" },
-      { label: "Manual Tracking Time", value: "-60%" },
-      { label: "Maintainability Gain", value: "+20%" },
-      { label: "Export Formats", value: "2 (CSV/PDF)" },
+      { label: "Tracking Discrepancies", value: "-15%", description: "Improved visibility into inventory changes" },
+      { label: "Manual Tracking Time", value: "-60%", description: "Reduced spreadsheet-heavy review work" },
+      { label: "Maintainability Gain", value: "+20%", description: "Reusable hooks and component patterns" },
+      { label: "Export Formats", value: "2", description: "CSV and PDF reporting workflows" },
     ],
     caseStudy: {
       overview:
-        "Inventory Dashboard showcases complex React component architecture, data visualization, reusable hook patterns, and practical UI engineering for operational workflows.",
+        "Inventory Management Dashboard is a React operations tool focused on forecasting, stock visibility, export workflows, and reusable UI patterns for inventory-heavy teams.",
+      snapshot: [
+        "React.js",
+        "JavaScript",
+        "regression.js",
+        "Forecasting",
+        "CSV Export",
+        "PDF Export",
+      ],
       sections: [
         {
           title: "Forecasting Engine",
           content:
-            "Integrated regression.js to build a statistical run-out forecasting model that predicts stock depletion dates from historical consumption data.",
+            "Integrated regression.js to estimate inventory run-out timing from usage patterns, helping users identify stock risk before it becomes urgent.",
         },
         {
-          title: "Reusable Architecture",
+          title: "Reusable React Architecture",
           content:
-            "Refactored dashboard logic into custom React hooks and shared components, cutting duplication and improving maintainability by 20%.",
+            "Organized dashboard behavior into reusable hooks and shared components to reduce duplication and make future dashboard changes easier.",
         },
         {
           title: "Export Workflows",
           content:
-            "Built CSV and PDF export pipelines for inventory snapshots and reports, enabling faster operations reviews.",
+            "Built CSV and PDF export flows so inventory snapshots could be shared, reviewed, and archived outside the application.",
+        },
+        {
+          title: "Operational UI Design",
+          content:
+            "Designed the interface around fast scanning, status awareness, and repeated operational use instead of a marketing-style dashboard.",
         },
       ],
       proofPoints: [
-        "Advanced React component and hooks architecture",
-        "Data visualization and operational dashboard design",
-        "Statistical forecasting integration",
-        "Reusable UI pattern implementation",
+        "React component architecture for dashboard workflows",
+        "Forecasting integration with practical operational value",
+        "Reusable hooks and UI patterns for maintainability",
+        "CSV/PDF export workflow implementation",
+        "Product thinking around inventory visibility and reporting",
       ],
     },
     liveDemo: "LIVE_DEMO_URL_HERE",
-    github: "https://github.com/Sashank033",
+    github: "https://github.com/Sashank033/inventory_dashboard.git",
     color: "from-emerald-500/20 to-sky-500/20",
     accentColor: "emerald",
     icon: "BarChart3",
@@ -259,14 +307,14 @@ export const projects: Project[] = [
     title: "Patient Medical Report Generator",
     subtitle: "Healthcare React App with PDF Generation",
     tagline:
-      "A responsive React app that captures patient intake data and generates clean, printable medical reports — reducing report creation time by 70%.",
+      "A responsive React app that captures patient intake data and generates clean, printable medical reports, reducing report creation time by 70%.",
     category: ["Frontend", "Full Stack"],
     featured: false,
     problem:
-      "Healthcare staff were manually typing patient intake data into reports, creating a slow, error-prone process with inconsistent formatting and no digital audit trail.",
+      "Healthcare-style reporting workflows can become slow and inconsistent when patient intake information is manually copied into report templates.",
     solution:
-      "Built a responsive React.js app with reusable form components and PDF generation, producing clean healthcare-style documentation and cutting report creation time by 70%.",
-    role: "Frontend Engineer — designed and built all form components, PDF layout logic, and responsive UI.",
+      "Built a responsive React app with structured intake forms, reusable form components, and PDF generation so reports can be created faster with cleaner formatting.",
+    role: "Owned the form UI, reusable component structure, PDF layout logic, responsive behavior, and report-generation workflow.",
     tech: ["React.js", "JavaScript", "HTML5", "CSS3", "PDF Generation"],
     highlights: [
       "70% reduction in report creation time",
@@ -276,34 +324,52 @@ export const projects: Project[] = [
       "Structured documentation output for clinical records",
     ],
     metrics: [
-      { label: "Report Creation Time", value: "-70%" },
-      { label: "UI", value: "Responsive" },
-      { label: "Output", value: "PDF Ready" },
+      { label: "Report Creation Time", value: "-70%", description: "Faster structured report generation" },
+      { label: "Responsive UI", value: "Yes", description: "Designed for desktop and tablet workflows" },
+      { label: "PDF Output", value: "Ready", description: "Clean printable report generation" },
     ],
     caseStudy: {
       overview:
-        "Medical Report Generator demonstrates form engineering, PDF layout handling, and responsive design for domain-specific applications.",
+        "Patient Medical Report Generator is a responsive React application that turns structured patient intake data into clean, printable PDF reports for healthcare-style workflows.",
+      snapshot: [
+        "React.js",
+        "JavaScript",
+        "Reusable Forms",
+        "PDF Generation",
+        "Responsive UI",
+      ],
       sections: [
         {
           title: "Form Engineering",
           content:
-            "Built a modular, reusable form component system that captures structured patient intake data with validation and error handling.",
+            "Built reusable form components for structured patient intake data, keeping the workflow organized and easier to maintain.",
         },
         {
           title: "PDF Generation",
           content:
-            "Implemented PDF layout handling to produce printable, healthcare-style documentation with consistent formatting and structured data.",
+            "Implemented report layout logic to produce clean PDF-ready documents with consistent formatting and structured patient information.",
+        },
+        {
+          title: "Responsive Workflow",
+          content:
+            "Designed the interface to remain usable across desktop and tablet-style screen sizes for practical intake and reporting workflows.",
+        },
+        {
+          title: "Maintainable UI Patterns",
+          content:
+            "Separated form fields, report data, and output logic into reusable pieces so future sections can be added without rewriting the app.",
         },
       ],
       proofPoints: [
         "Domain-specific UI component design",
+        "Reusable form architecture for structured data capture",
         "PDF generation and layout handling",
-        "Reusable form architecture",
         "Responsive design for professional workflows",
+        "Product thinking around reducing repetitive reporting work",
       ],
     },
     liveDemo: "LIVE_DEMO_URL_HERE",
-    github: "https://github.com/Sashank033",
+    github: "https://github.com/Sashank033/Patient_Report_Generator.git",
     color: "from-amber-500/20 to-violet-500/20",
     accentColor: "amber",
     icon: "FileHeart",
