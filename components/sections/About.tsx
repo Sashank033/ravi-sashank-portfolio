@@ -66,16 +66,16 @@ export default function About() {
       <div className="grid lg:grid-cols-2 gap-14 mt-2 items-start">
 
         {/* ── Text ── */}
-        <div className="space-y-5">
+        <div className="space-y-6">
           <SectionReveal delay={0.08}>
-            <p className="text-slate-400 leading-relaxed text-[15px]">
+            <p className="text-left md:text-justify text-base md:text-[17px] leading-8 text-slate-200">
               I&apos;m a Full Stack Developer with 3+ years of production experience across the
               complete web stack, React UIs, Node.js APIs, PostgreSQL databases, cloud
               infrastructure on AWS, and AI integrations using OpenAI&apos;s API.
             </p>
           </SectionReveal>
           <SectionReveal delay={0.14}>
-            <p className="text-slate-400 leading-relaxed text-[15px]">
+            <p className="text-left md:text-justify text-base md:text-[17px] leading-8 text-slate-200">
               My work is driven by a product first mindset: build reusable components,
               write maintainable code, optimize for real user impact, and ship with confidence.
               I&apos;ve delivered measurable improvements by 25% faster page responsiveness,
@@ -84,7 +84,7 @@ export default function About() {
             </p>
           </SectionReveal>
           <SectionReveal delay={0.2}>
-            <p className="text-slate-400 leading-relaxed text-[15px]">
+            <p className="text-left md:text-justify text-base md:text-[17px] leading-8 text-slate-200">
               Based in Denton, TX (DFW). Open To Relocate  for Full Stack, Software Engineer,
               and Frontend roles — Remote, Hybrid, or On-site.
             </p>
@@ -114,11 +114,11 @@ export default function About() {
                 className={`glass border border-white/[0.07] rounded-2xl p-5
                   transition-all duration-300 ${hoverMap[p.color]} hover:-translate-y-1 h-full`}
               >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${colorMap[p.color]}`}>
-                  <p.icon className="w-5 h-5" />
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${colorMap[p.color]}`}>
+                  <p.icon className="w-6 h-6" />
                 </div>
-                <p className="font-syne font-semibold text-slate-200 text-sm mb-2 leading-snug">{p.label}</p>
-                <p className="text-slate-500 text-xs leading-relaxed">{p.desc}</p>
+                <p className="font-syne font-semibold text-slate-100 text-base mb-2 leading-snug">{p.label}</p>
+                <p className="text-[15px] leading-7 text-slate-300">{p.desc}</p>
               </div>
             </SectionReveal>
           ))}

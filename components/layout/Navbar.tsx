@@ -22,21 +22,30 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  /* ── Active section via IntersectionObserver ── */
+  /* ── Active section based on scroll position ── */
   useEffect(() => {
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { rootMargin: "-35% 0px -55% 0px" }
-    );
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
+    const updateActiveSection = () => {
+      const marker = window.scrollY + window.innerHeight * 0.35;
+      let current = "hero";
+
+      SECTION_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const top = el.offsetTop;
+        if (marker >= top) current = id;
+      });
+
+      setActive(current);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   /* ── Body scroll lock when mobile menu open ── */
@@ -81,6 +90,7 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
+                  onClick={() => setActive(id)}
                   className={cn(
                     "relative px-5 py-2.5 rounded-lg text-[15px] font-medium transition-colors duration-200",
                     isActive ? "text-sky-400" : "text-slate-500 hover:text-slate-200"

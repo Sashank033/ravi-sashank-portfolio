@@ -132,7 +132,7 @@ export default function Hero() {
             {/* Headline */}
             <motion.p
               {...fadeUp(0.3)}
-              className="text-slate-400 text-[15px] md:text-base leading-relaxed max-w-xl"
+              className="text-slate-300 text-[15px] md:text-base leading-relaxed max-w-xl"
             >
               I build full stack web applications with React, Next.js, Node.js, PostgreSQL,
               and AWS, including AI Powered Features, REST APIs, and scalable data workflows.
@@ -147,7 +147,7 @@ export default function Hero() {
                 className="btn-primary"
                 aria-label="Download resume PDF"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-5 h-5" />
                 Download Resume
               </a>
               <a href="#projects" className="btn-ghost">
@@ -170,7 +170,7 @@ export default function Hero() {
                   <AnimatedShinyText
                     key={t}
                     variant="text"
-                    className="text-xs transition-colors cursor-default"
+                    className="text-sm transition-colors cursor-default"
                   >
                     {t}
                   </AnimatedShinyText>
@@ -224,7 +224,7 @@ export default function Hero() {
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/40"
                 >
                   <ExternalLink className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
-                  <p className="text-slate-400 text-xs leading-relaxed">
+                  <p className="text-sm leading-6 text-slate-300">
                     MS Computer Science · University of South Florida · May 2025
                   </p>
                 </a>

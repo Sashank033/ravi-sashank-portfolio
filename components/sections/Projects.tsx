@@ -91,14 +91,14 @@ function FeaturedProjectCard({
             </div>
           </div>
 
-          <p className="text-slate-400 text-[15px] leading-relaxed">{project.tagline}</p>
+          <p className="text-slate-300 text-[15px] leading-relaxed">{project.tagline}</p>
 
           {/* Highlights */}
           <ul className="space-y-2">
             {project.highlights.map((h) => (
               <li key={h} className="flex items-start gap-2.5">
                 <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${a.text}`} />
-                <span className="text-slate-400 text-sm">{h}</span>
+                <span className="text-sm text-slate-300">{h}</span>
               </li>
             ))}
           </ul>
@@ -190,40 +190,40 @@ function CompactProjectCard({
     >
       {/* Icon + title */}
       <div className="flex min-h-[6.25rem] items-start gap-3">
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0
           bg-gradient-to-br ${project.color}`}>
-          {Icon && <Icon className={`w-5 h-5 ${a.text}`} />}
+          {Icon && <Icon className={`w-6 h-6 ${a.text}`} />}
         </div>
         <div>
-          <h3 className="font-syne font-bold text-slate-100 text-base leading-tight">{project.title}</h3>
-          <p className={`text-xs ${a.text} mt-0.5`}>{project.subtitle}</p>
+          <h3 className="font-syne font-bold text-slate-100 text-xl leading-tight">{project.title}</h3>
+          <p className={`text-sm ${a.text} mt-1`}>{project.subtitle}</p>
         </div>
       </div>
 
-      <p className="min-h-[5.25rem] text-slate-400 text-xs leading-relaxed line-clamp-4">
+      <p className="min-h-[5.75rem] text-[15px] leading-7 text-slate-300 line-clamp-4">
         {project.tagline}
       </p>
 
       {/* Key metric */}
       {project.metrics[0] && (
         <div className="flex items-center gap-2 py-2.5 px-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-          <p className={`translate-y-[1px] font-syne font-bold text-xl leading-none ${a.metricText}`}>
+          <p className={`translate-y-[1px] font-syne font-bold text-2xl leading-none ${a.metricText}`}>
             {project.metrics[0].value}
           </p>
-          <p className="text-slate-600 text-[10px]">{project.metrics[0].label}</p>
+          <p className="text-slate-500 text-xs">{project.metrics[0].label}</p>
         </div>
       )}
 
       {/* Tech */}
       <div className="flex flex-wrap gap-1 mt-auto">
         {project.tech.slice(0, 4).map((t) => (
-          <span key={t} className="px-2 py-0.5 rounded text-[10px] font-medium
+          <span key={t} className="px-2.5 py-1 rounded text-xs font-medium
             bg-white/[0.04] text-slate-500 border border-white/[0.07]">
             {t}
           </span>
         ))}
         {project.tech.length > 4 && (
-          <span className="px-2 py-0.5 rounded text-[10px] text-slate-600 border border-white/[0.05]">
+          <span className="px-2.5 py-1 rounded text-xs text-slate-500 border border-white/[0.05]">
             +{project.tech.length - 4}
           </span>
         )}
@@ -248,20 +248,20 @@ function CompactProjectCard({
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg text-[11px] font-medium
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium
             bg-white/[0.04] text-slate-400 border border-white/8 hover:bg-white/8 transition-all"
           aria-label={`GitHub: ${project.title}`}
         >
-          <Github className="w-3 h-3" />
+          <Github className="w-4 h-4" />
           Code
         </a>
         <button
           onClick={() => onCaseStudy(project)}
-          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg text-[11px] font-medium
+          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-sm font-medium
             bg-violet-500/8 text-violet-400 border border-violet-500/15 hover:bg-violet-500/15 transition-all"
           aria-label={`Case study: ${project.title}`}
         >
-          <Sparkles className="w-3 h-3" />
+          <Sparkles className="w-4 h-4" />
           Details
         </button>
       </div>
@@ -345,14 +345,14 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
                 <span className="h-1.5 w-1.5 rounded-full bg-red-400" />
                 <p className="font-syne font-semibold text-red-400 text-sm">The Problem</p>
               </div>
-              <p className="text-slate-400 text-sm leading-relaxed">{project.problem}</p>
+              <p className="text-sm leading-6 text-slate-300">{project.problem}</p>
             </div>
             <div className="glass border border-emerald-500/10 rounded-2xl p-5">
               <div className="mb-2 flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 <p className="font-syne font-semibold text-emerald-400 text-sm">My Solution</p>
               </div>
-              <p className="text-slate-400 text-sm leading-relaxed">{project.solution}</p>
+              <p className="text-sm leading-6 text-slate-300">{project.solution}</p>
             </div>
           </div>
 
@@ -373,7 +373,7 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
                 {project.caseStudy.sections.map((s) => (
                   <div key={s.title} className="glass border border-white/[0.06] rounded-xl p-4">
                     <p className={`font-syne font-semibold text-sm ${a.text} mb-2`}>{s.title}</p>
-                    <p className="text-slate-400 text-xs leading-relaxed">{s.content}</p>
+                    <p className="text-sm leading-6 text-slate-300">{s.content}</p>
                   </div>
                 ))}
               </div>
@@ -404,7 +404,7 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
               {project.caseStudy.proofPoints.map((point) => (
                 <div key={point} className="flex items-start gap-2.5">
                   <CheckCircle2 className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${a.text}`} />
-                  <p className="text-slate-400 text-sm">{point}</p>
+                  <p className="text-sm leading-6 text-slate-300">{point}</p>
                 </div>
               ))}
             </div>

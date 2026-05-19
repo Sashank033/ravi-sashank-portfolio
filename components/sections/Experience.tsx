@@ -39,13 +39,13 @@ function HighlightedBullet({ text, accentClass }: { text: string; accentClass: s
     const metric = match[1];
     const rest = text.slice(metric.length).trimStart();
     return (
-      <span className="text-[13px] leading-6 text-slate-400">
+      <span className="text-base leading-8 text-slate-200">
         <span className={`font-syne font-bold ${accentClass}`}>{metric}</span>{" "}
         {rest}
       </span>
     );
   }
-  return <span className="text-[13px] leading-6 text-slate-400">{text}</span>;
+  return <span className="text-base leading-8 text-slate-200">{text}</span>;
 }
 
 export default function Experience() {
@@ -75,7 +75,7 @@ export default function Experience() {
         </div>
       </SectionReveal>
 
-      <div className="relative max-w-4xl">
+      <div className="relative max-w-5xl">
         {/* Vertical connector line */}
         <div
           className="absolute left-[13px] sm:left-[18px] top-4 bottom-6 w-px pointer-events-none"
@@ -86,7 +86,7 @@ export default function Experience() {
           aria-hidden="true"
         />
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           {experiences.map((exp, i) => {
             const c = colorMap[exp.color];
             return (
@@ -112,21 +112,21 @@ export default function Experience() {
 
                 {/* Card */}
                 <div
-                  className={`glass ${c.border} rounded-2xl p-6 md:p-7
+                  className={`glass ${c.border} rounded-2xl p-7 md:p-9
                     transition-all duration-300 hover:-translate-y-0.5`}
                 >
                   {/* Row 1: role + current badge */}
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>
-                      <h3 className="font-syne text-xl font-bold leading-tight text-slate-100">
+                      <h3 className="font-syne text-3xl font-bold leading-tight text-slate-100">
                         {exp.role}
                       </h3>
-                      <p className={`mt-1.5 font-syne text-[15px] font-semibold leading-snug ${c.text}`}>
+                      <p className={`mt-2 font-syne text-lg font-semibold leading-snug ${c.text}`}>
                         {exp.company}
                       </p>
                     </div>
                     {exp.current && (
-                      <span className="badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-[10px]">
+                      <span className="badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 text-xs">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 motion-safe:animate-pulse motion-reduce:animate-none" />
                         Current
                       </span>
@@ -134,27 +134,27 @@ export default function Experience() {
                   </div>
 
                   {/* Period + location */}
-                  <div className="mb-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-slate-500">
+                  <div className="mb-5 flex flex-wrap gap-x-5 gap-y-2 text-[15px] font-medium text-slate-400">
                     <span className="flex items-center gap-1.5">
-                      <Calendar className="w-3 h-3" />
+                      <Calendar className="w-4 h-4" />
                       {exp.period}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <MapPin className="w-3 h-3" />
+                      <MapPin className="w-4 h-4" />
                       {exp.location}
                     </span>
                   </div>
 
-                  <p className="mb-5 text-[15px] leading-7 text-slate-400">
+                  <p className="mb-6 text-base leading-8 text-slate-200">
                     {exp.summary}
                   </p>
 
                   {/* Bullets — scannable, metrics front-loaded */}
-                  <ul className="space-y-2.5 mb-5">
+                  <ul className="space-y-3 mb-6">
                     {exp.bullets.map((b, bi) => (
                       <li key={bi} className="flex items-start gap-2.5">
                         <span
-                          className={`w-1 h-1 rounded-full shrink-0 mt-[7px] ${c.bullet}`}
+                          className={`w-1.5 h-1.5 rounded-full shrink-0 mt-[11px] ${c.bullet}`}
                         />
                         <HighlightedBullet text={b} accentClass={c.text} />
                       </li>
@@ -162,9 +162,9 @@ export default function Experience() {
                   </ul>
 
                   {/* Tech stack */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {exp.tech.map((t) => (
-                      <span key={t} className={`${c.tag} text-[10px]`}>{t}</span>
+                      <span key={t} className={`${c.tag} text-sm`}>{t}</span>
                     ))}
                   </div>
                 </div>

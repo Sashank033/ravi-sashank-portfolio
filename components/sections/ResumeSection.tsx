@@ -29,7 +29,7 @@ export default function ResumeSection() {
             >
               Want the full picture?
             </h2>
-            <p className="text-slate-400 max-w-lg mx-auto text-base mb-10 leading-relaxed">
+            <p className="text-slate-300 max-w-lg mx-auto text-base mb-10 leading-relaxed">
               My resume covers all experience, projects, and technical skills in detail.
               I&apos;m actively interviewing and available to start immediately.
             </p>
@@ -38,28 +38,28 @@ export default function ResumeSection() {
               <a
                 href={profile.resume}
                 download
-                className="btn-primary px-8 py-3.5 text-sm"
+                className="btn-primary px-8 py-3.5"
                 aria-label="Download resume PDF"
               >
-                <Download className="w-4 h-4" />
+                <Download className="w-5 h-5" />
                 Download Resume
               </a>
               <a
                 href="#contact"
-                className="btn-ghost px-8 py-3.5 text-sm"
+                className="btn-ghost px-8 py-3.5"
                 aria-label="Go to contact section"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-5 h-5" />
                 Contact Me
               </a>
               <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost px-8 py-3.5 text-sm"
+                className="btn-ghost px-8 py-3.5"
                 aria-label="LinkedIn profile"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-5 h-5" />
                 LinkedIn
               </a>
             </div>

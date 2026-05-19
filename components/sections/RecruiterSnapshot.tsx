@@ -87,8 +87,8 @@ export default function RecruiterSnapshot() {
         <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent" />
       </motion.div>
 
-      {/* Horizontal strip — wraps on mobile */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+      {/* Snapshot cards — wider cards keep the title beside the icon */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {facts.map((fact, i) => {
           const Icon = fact.icon;
           const c = colorMap[fact.color];
@@ -98,19 +98,21 @@ export default function RecruiterSnapshot() {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="glass border border-white/[0.07] rounded-2xl p-4 flex flex-col gap-3
+              className="glass border border-white/[0.07] rounded-2xl p-5
                 hover:border-sky-500/15 transition-all duration-200 hover:-translate-y-0.5"
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${c.icon}`}>
-                <Icon className="w-3.5 h-3.5" />
-              </div>
-              <div>
-                <p className={`font-syne font-bold text-sm leading-none mb-1 ${c.text}`}>
+              <div className="mb-3 flex items-center gap-3">
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center border ${c.icon}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <p className={`font-syne font-bold text-lg leading-tight ${c.text}`}>
                   {fact.value}
                 </p>
+              </div>
+              <div className="pl-[56px]">
                 <AnimatedShinyText
                   variant="text"
-                  className="text-[10px] leading-snug"
+                  className="text-sm leading-snug"
                 >
                   {fact.label}
                 </AnimatedShinyText>

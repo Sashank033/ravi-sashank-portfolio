@@ -46,7 +46,9 @@ export default function AISection() {
     >
       <SectionReveal>
         <div className="flex items-center gap-3 mb-4">
-          <span className="tag-violet">AI Product Engineering</span>
+          <span className="tag-violet text-xs md:text-[13px] uppercase tracking-[0.12em]">
+            AI Product Engineering
+          </span>
           <div className="h-px flex-1 bg-gradient-to-r from-violet-500/30 to-transparent" />
         </div>
         <h2 id="ai-heading" className="section-title text-slate-100 mb-2">
@@ -72,7 +74,7 @@ export default function AISection() {
               <h3 className="font-syne font-bold text-slate-100 text-2xl mb-3">
                 ApplyWise AI — ATS Resume Analyzer
               </h3>
-              <p className="text-slate-400 text-sm leading-relaxed mb-5">
+              <p className="mb-5 text-sm leading-6 text-slate-300">
                 A Full Stack platform that uses OpenAI API to parse resumes, score them against job descriptions,
                 detect skill gaps, and surface actionable improvements, with a local keyword matching fallback
                 for API-free environments.
@@ -114,12 +116,12 @@ export default function AISection() {
               className="glass border border-white/[0.07] rounded-2xl p-5
                 hover:border-violet-500/25 hover:-translate-y-0.5 transition-all duration-300"
             >
-              <div className="w-9 h-9 rounded-xl bg-violet-500/10 border border-violet-500/20
+              <div className="w-11 h-11 rounded-xl bg-violet-500/10 border border-violet-500/20
                 flex items-center justify-center mb-4">
-                <Icon className="w-4.5 h-4.5 text-violet-400 w-[18px] h-[18px]" />
+                <Icon className="h-5 w-5 text-violet-400" />
               </div>
-              <h3 className="font-syne font-semibold text-slate-200 text-sm mb-2">{cap.title}</h3>
-              <p className="text-slate-500 text-xs leading-relaxed">{cap.desc}</p>
+              <h3 className="font-syne font-semibold text-slate-100 text-base mb-2">{cap.title}</h3>
+              <p className="text-[15px] leading-7 text-slate-300">{cap.desc}</p>
             </motion.div>
           );
         })}

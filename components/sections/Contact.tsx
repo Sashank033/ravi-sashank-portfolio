@@ -97,9 +97,9 @@ export default function Contact() {
       aria-labelledby="contact-heading"
     >
       <SectionReveal className="relative">
-        <div className="absolute right-40 top-10 z-10 hidden w-48 flex-col items-center md:flex">
+        <div className="absolute right-40 top-10 z-10 hidden w-56 flex-col items-center md:flex">
           <div
-            className="contact-avatar-badge relative h-24 w-24 overflow-visible rounded-full"
+            className="contact-avatar-badge relative h-32 w-32 overflow-visible rounded-full"
             aria-label="Ravi Sashank profile photo"
           >
             <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-sky-400/55 bg-navy-900 shadow-[0_0_24px_rgba(56,189,248,0.26),0_18px_48px_rgba(0,0,0,0.42)]">
@@ -111,14 +111,14 @@ export default function Contact() {
                   src="/profile.jpg"
                   alt="Ravi Sashank profile photo"
                   fill
-                  sizes="96px"
+                  sizes="128px"
                   className="object-cover object-[50%_30%]"
                   priority={false}
                   onError={() => setAvatarFailed(true)}
                 />
               )}
             </div>
-            <span className="absolute bottom-2 right-2 h-4 w-4 rounded-full border-2 border-navy-950 bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.85)]" />
+            <span className="absolute bottom-3 right-3 h-5 w-5 rounded-full border-2 border-navy-950 bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.85)]" />
           </div>
           <div className="mt-4 flex flex-col items-center">
             <LocationTag />
@@ -129,18 +129,18 @@ export default function Contact() {
         </div>
 
         <div className="flex items-center gap-3 mb-4">
-          <span className="tag">Contact</span>
+          <span className="tag text-xs md:text-[13px] uppercase tracking-[0.12em]">Contact</span>
           <div className="h-px flex-1 bg-gradient-to-r from-sky-500/30 to-transparent" />
         </div>
         <h2 id="contact-heading" className="section-title text-slate-100 mb-2">
           Let&apos;s{" "}
           <span className="text-gradient-sky">Work Together</span>
         </h2>
-        <div className="mb-3 min-h-[1.5rem]">
+        <div className="mb-4 min-h-[1.75rem]">
           <TypewriterText
             staticText="Let's Build : "
             phrases={CONTACT_TYPEWRITER_PHRASES}
-            className="block font-syne text-sm font-semibold leading-relaxed text-slate-500"
+            className="block font-syne text-base font-semibold leading-relaxed text-slate-400"
             phraseClassName="text-sky-400"
             phraseMinWidthClassName="inline-block sm:min-w-[17rem]"
             cursorClassName="text-sky-400"
@@ -149,8 +149,8 @@ export default function Contact() {
             pauseMs={1550}
           />
         </div>
-        <p className="max-w-xl mb-12">
-          <AnimatedShinyText variant="text" className="text-sm leading-relaxed">
+        <p className="max-w-2xl mb-12">
+          <AnimatedShinyText variant="text" className="text-base leading-8">
             I&apos;m actively looking for Full Stack, Software Engineer, and Frontend roles.
             Reach out directly or book a quick call below.
           </AnimatedShinyText>
@@ -170,28 +170,28 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.45 }}
-                className="glass border border-white/[0.07] rounded-xl p-4 flex items-center
-                  justify-between gap-4 hover:border-sky-500/20 transition-all duration-200 group"
+              className="glass border border-white/[0.07] rounded-2xl p-5 flex items-center
+                  justify-between gap-5 hover:border-sky-500/20 transition-all duration-200 group"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-14 h-14 rounded-xl bg-sky-500/10 border border-sky-500/20
                     flex items-center justify-center shrink-0">
-                    <Icon className="w-4 h-4 text-sky-400" />
+                    <Icon className="w-6 h-6 text-sky-400" />
                   </div>
-                  <div>
-                    <p className="text-slate-500 text-[10px] uppercase tracking-wider">{link.label}</p>
+                  <div className="min-w-0">
+                    <p className="text-slate-500 text-xs uppercase tracking-wider">{link.label}</p>
                     {link.href ? (
                       <a
                         href={link.href}
                         target={link.href.startsWith("http") ? "_blank" : undefined}
                         rel="noopener noreferrer"
-                        className="text-slate-300 text-xs hover:text-sky-400 transition-colors truncate
-                          max-w-[180px] block"
+                        className="text-slate-200 text-[15px] hover:text-sky-400 transition-colors truncate
+                          max-w-[240px] block"
                       >
                         {link.value}
                       </a>
                     ) : (
-                      <p className="text-slate-300 text-xs">{link.value}</p>
+                      <p className="text-slate-200 text-[15px]">{link.value}</p>
                     )}
                   </div>
                 </div>
@@ -201,13 +201,13 @@ export default function Contact() {
                       link.copyType === "email" ? profile.email : profile.phone,
                       link.copyType!
                     )}
-                    className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-500
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500
                       hover:text-sky-400 hover:bg-sky-500/10 transition-all duration-200 shrink-0"
                     aria-label={`Copy ${link.label}`}
                   >
                     {link.copied
-                      ? <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      : <Copy className="w-3.5 h-3.5" />
+                      ? <Check className="w-4 h-4 text-emerald-400" />
+                      : <Copy className="w-4 h-4" />
                     }
                   </button>
                 )}
@@ -223,13 +223,13 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.45, duration: 0.45 }}
-            className="glass border border-emerald-500/20 rounded-xl p-5 mt-2"
+            className="glass border border-emerald-500/20 rounded-2xl p-6 mt-2"
           >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <p className="font-syne font-semibold text-emerald-400 text-sm">Open To Relocate</p>
+            <div className="flex items-center gap-2.5 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="font-syne font-semibold text-emerald-400 text-lg">Open To Relocate</p>
             </div>
-            <p className="text-slate-400 text-xs leading-relaxed">
+            <p className="text-base leading-8 text-slate-200">
               I&apos;m actively interviewing for Full Stack, Software Engineer, and Frontend Developer roles.
               Open to remote, hybrid, and on-site positions in DFW and beyond.
             </p>
@@ -238,13 +238,13 @@ export default function Contact() {
 
         {/* Right — Calendly booking */}
         <SectionReveal className="lg:col-span-3" delay={0.15} direction="right">
-          <div className="glass border border-sky-500/15 rounded-2xl p-5 md:p-7 shadow-[0_24px_70px_rgba(14,165,233,0.08)]">
-            <div className="mb-5">
-              <span className="badge bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[10px]">
+          <div className="glass border border-sky-500/15 rounded-2xl p-6 md:p-8 shadow-[0_24px_70px_rgba(14,165,233,0.08)]">
+            <div className="mb-6">
+              <span className="badge bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs">
                 15 min intro call
               </span>
              
-              <p className="text-slate-400 text-sm leading-relaxed mt-2">
+              <p className="mt-3 text-base leading-8 text-slate-200">
                 Schedule a time to discuss full-stack, frontend, software engineering, or
                 AI-integrated roles.
               </p>

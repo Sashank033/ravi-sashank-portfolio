@@ -26,7 +26,7 @@ export default function Education() {
     >
       <SectionReveal>
         <div className="flex items-center gap-3 mb-4">
-          <span className="tag">Education</span>
+          <span className="tag text-xs md:text-[13px] uppercase tracking-[0.12em]">Education</span>
           <div className="h-px flex-1 bg-gradient-to-r from-sky-500/30 to-transparent" />
         </div>
         <h2 id="education-heading" className="section-title text-slate-100 mb-10">
@@ -53,30 +53,30 @@ export default function Education() {
               </div>
 
               <div className="mb-4">
-                <span className={`font-syne font-bold text-xs ${colors.text} uppercase tracking-widest`}>
+                <span className={`font-syne font-bold text-sm ${colors.text} uppercase tracking-widest`}>
                   {edu.schoolShort}
                 </span>
-                <h3 className="font-syne font-bold text-slate-100 text-base mt-1 leading-snug">
+                <h3 className="font-syne font-bold text-slate-100 text-xl mt-1 leading-snug">
                   {edu.degree}
                 </h3>
-                <p className={`text-sm font-medium ${colors.text} mt-0.5`}>{edu.field}</p>
+                <p className={`text-base font-medium ${colors.text} mt-0.5`}>{edu.field}</p>
               </div>
 
-              <p className="text-slate-500 text-xs leading-relaxed mb-5">{edu.description}</p>
+              <p className="mb-5 text-[15px] leading-7 text-slate-300">{edu.description}</p>
 
-              <div className="flex flex-col gap-1.5 text-xs text-slate-500">
+              <div className="flex flex-col gap-1.5 text-sm text-slate-400">
                 <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3 h-3" />
+                  <Calendar className="w-4 h-4" />
                   {edu.period}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <MapPin className="w-3 h-3" />
+                  <MapPin className="w-4 h-4" />
                   {edu.location}
                 </span>
               </div>
 
               <div className="mt-4 pt-4 border-t border-white/[0.05]">
-                <p className="text-slate-500 text-xs">{edu.school}</p>
+                <p className="text-slate-400 text-sm">{edu.school}</p>
               </div>
             </motion.div>
           );

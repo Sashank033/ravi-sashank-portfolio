@@ -162,12 +162,12 @@ export default function TechProof() {
                 transition-all duration-300 ${c.border} hover:-translate-y-1`}
             >
               {/* Icon + titles */}
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center
                 mb-4 border ${c.icon}`}>
-                <Icon className="w-5 h-5" />
+                <Icon className="w-6 h-6" />
               </div>
 
-              <p className={`font-syne font-bold text-sm leading-tight ${c.text}`}>
+              <p className={`font-syne font-bold text-base leading-tight ${c.text}`}>
                 {area.title}
               </p>
               <p className="text-slate-600 text-[10px] uppercase tracking-wider mb-4 mt-0.5">
@@ -181,7 +181,7 @@ export default function TechProof() {
                     <span
                       className={`w-1 h-1 rounded-full shrink-0 mt-[7px] ${c.dot}`}
                     />
-                    <span className="text-slate-400 text-xs leading-relaxed">{item}</span>
+                    <span className="text-[15px] leading-7 text-slate-300">{item}</span>
                   </li>
                 ))}
               </ul>
