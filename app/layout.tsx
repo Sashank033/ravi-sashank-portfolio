@@ -3,6 +3,7 @@ import { Sora, Manrope } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Providers from "@/components/ui/Providers";
+import GoogleAnalytics from "@/components/ui/GoogleAnalytics";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -85,6 +86,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <Providers>{children}</Providers>
         <Analytics />
+        <GoogleAnalytics />
       </body>
     </html>
   );
