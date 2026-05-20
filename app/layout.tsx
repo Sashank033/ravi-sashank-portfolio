@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "Full Stack Developer portfolio showcasing projects, case studies, resume, and full-stack engineering work.",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://ravidhulipala.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Ravi Sashank Full Stack Developer Portfolio",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Ravi Sashank | Full Stack Developer Portfolio",
     description:
       "Full Stack Developer portfolio showcasing React, Next.js, TypeScript, Node.js, PostgreSQL, AWS, and AI-integrated applications.",
-    images: ["/og-image.png"],
+    images: ["https://ravidhulipala.com/og-image.png"],
   },
   robots: {
     index: true,
