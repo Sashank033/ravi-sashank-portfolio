@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Providers from "@/components/ui/Providers";
 
@@ -83,6 +84,7 @@ export default function RootLayout({
       <head />
       <body className="font-body antialiased">
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
