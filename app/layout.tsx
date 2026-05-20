@@ -19,10 +19,16 @@ const manrope = Manrope({
   display: "swap",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "V S Ravi Sashank Dhulipala | Full Stack Developer & Software Engineer",
+  metadataBase: new URL("https://ravidhulipala.com"),
+  title: "Ravi Sashank | Full Stack Developer Portfolio",
   description:
-    "Full Stack Developer and Software Engineer building responsive React, Next.js, Node.js, PostgreSQL, AWS, and AI-powered web applications. Based in Denton, TX / DFW Area. Available immediately.",
+    "Full Stack Developer portfolio showcasing React, Next.js, TypeScript, Node.js, PostgreSQL, AWS, OpenAI integrations, projects, case studies, resume, and live booking.",
   keywords: [
     "Full Stack Developer",
     "Software Engineer",
@@ -44,34 +50,30 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://YOUR_PORTFOLIO_DOMAIN_HERE",
-    siteName: "V S Ravi Sashank Dhulipala | Portfolio",
-    title: "V S Ravi Sashank Dhulipala | Full Stack Developer & Software Engineer",
+    url: "https://ravidhulipala.com",
+    siteName: "Ravi Sashank Portfolio",
+    title: "Ravi Sashank | Full Stack Developer Portfolio",
     description:
-      "Full Stack Developer building AI-powered, database-driven web applications with React, Next.js, Node.js, PostgreSQL, and AWS.",
+      "Full Stack Developer portfolio showcasing projects, case studies, resume, and full-stack engineering work.",
     images: [
       {
-        url: "/og-image.png", // Add /public/og-image.png to enable OG image
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "V S Ravi Sashank Dhulipala — Full Stack Developer",
+        alt: "Ravi Sashank Full Stack Developer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "V S Ravi Sashank Dhulipala | Full Stack Developer",
+    title: "Ravi Sashank | Full Stack Developer Portfolio",
     description:
-      "Full Stack Developer building AI-powered, database-driven web applications.",
+      "Full Stack Developer portfolio showcasing React, Next.js, TypeScript, Node.js, PostgreSQL, AWS, and AI-integrated applications.",
     images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
   },
 };
 
